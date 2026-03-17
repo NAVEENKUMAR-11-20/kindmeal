@@ -17,7 +17,9 @@ const handleLogin = async () => {
     console.log('Initiating Firebase signInWithPopup...');
     
     // 🔴 ERROR HAPPENS HERE
-    const result = await signInWithPopup(auth, googleProvider);
+    import { signInWithRedirect } from "firebase/auth";
+    await signInWithRedirect(auth, googleProvider);
+    
 
     console.log('Sign-in result:', result);
     const user = result.user;
