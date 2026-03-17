@@ -5,6 +5,7 @@ import { getFoodPosts, createRequest, getRequests } from '../services/api';
 import socket from '../services/socket';
 
 const OrphanageDashboard = () => {
+  // eslint-disable-next-line no-unused-vars
   const [selectedFilter, setSelectedFilter] = useState('All');
   const [foodPosts, setFoodPosts] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -128,6 +129,7 @@ const OrphanageDashboard = () => {
     }
   };
 
+  // eslint-disable-next-line no-unused-vars
   const categories = ['All', 'Vegetarian', 'Non-Vegetarian'];
 
   // Build display list — use mock data if no real posts yet
@@ -170,6 +172,7 @@ const OrphanageDashboard = () => {
       ? displayPosts
       : displayPosts.filter((p) => p.type === selectedFilter);
 
+  // eslint-disable-next-line no-unused-vars
   const getTimeLeft = (expiryTime) => {
     const diffMs = new Date(expiryTime) - new Date();
     if (diffMs <= 0) return 'Expired';
@@ -178,6 +181,7 @@ const OrphanageDashboard = () => {
     return hrs > 0 ? `${hrs}h ${mins}m` : `${mins}m`;
   };
 
+  // eslint-disable-next-line no-unused-vars
   const isExpiringSoon = (expiryTime) => {
     const diffHrs = (new Date(expiryTime) - new Date()) / 3600000;
     return diffHrs < 3;

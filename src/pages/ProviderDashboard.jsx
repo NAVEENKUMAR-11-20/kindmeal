@@ -84,6 +84,7 @@ const ProviderDashboard = () => {
       socket.off('request_updated');
       socket.off('food_status_updated');
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
