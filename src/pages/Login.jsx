@@ -6,35 +6,46 @@ import { auth, googleProvider } from '../firebase';
 import { signInWithPopup } from 'firebase/auth';
 import { createUser } from '../services/api';
 
-const Login = () => {
-  const [role, setRole] = useState(null); // 'provider' or 'orphanage'
-  const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState('');
-  const navigate = useNavigate();
+const handleLogin = async () => {
+  console.log('Login button clicked. Role:', role);
+  if (!role) return;
 
-  const handleLogin = async () => {
-    console.log('Login button clicked. Role:', role);
-    if (!role) return;
-    setIsLoading(true);
-    setError('');
+  setIsLoading(true);
+  setError('');
 
-    try {
-      console.log('Initiating Firebase signInWithPopup...');
-      const result = await signInWithPopup(auth, googleProvider);
-      console.log('Sign-in result:', result);
-      const user = result.user;
-      console.log('Authenticated User:', user.email);
+  try {
+    console.log('Initiating Firebase signInWithPopup...');
+    
+    // 🔴 ERROR HAPPENS HERE
+    const result = await signInWithPopup(auth, googleProvider);
 
-      // Sync with backend and get user ID
-      const syncRes = await createUser({
-        name: user.displayName || 'Anonymous User',
-        email: user.email,
-        role: role,
-        phone: user.phoneNumber || '',
-        address: 'Not provided'
-      });
-      const dbUser = syncRes.data;
+    console.log('Sign-in result:', result);
+    const user = result.user;
+    console.log('Authenticated User:', user.email);
 
+    // Sync with backend
+    const syncRes = await createUser({
+      name: user.displayName || 'Anonymous User',
+      email: user.email,
+      role: role,
+      phone: user.phoneNumber || '',
+      address: 'Not provided'
+    });
+
+    const dbUser = syncRes.data;
+
+    // (your remaining code...)
+    
+  } catch (err) {   // 👈 ✅ THIS IS THE CATCH PART
+    console.error("FULL ERROR:", err);
+    console.error("ERROR CODE:", err.code);
+    console.error("ERROR MESSAGE:", err.message);
+
+    setError(err.message); // show real error on UI
+  } finally {       // 👈 optional but good
+    setIsLoading(false);
+  }
+};
       // Save user details for Profile and session management
       localStorage.setItem('userRole', role);
       localStorage.setItem('userId', dbUser._id);
