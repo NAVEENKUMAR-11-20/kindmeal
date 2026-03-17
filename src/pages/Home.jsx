@@ -4,7 +4,7 @@ import { motion, useInView } from 'framer-motion';
 import {
   Heart, LogIn, User,
   UserPlus, Utensils, Truck, HandHeart,
-  Building2, Star, ArrowRight, Mail, Phone, MapPin
+  Building2, ArrowRight, Mail, Phone, MapPin
 } from 'lucide-react';
 
 // ─── animation helpers ────────────────────────────────────────────────────────
