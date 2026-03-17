@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
-import { CheckCircle2, Building2, Utensils, ArrowRight, AlertCircle } from 'lucide-react';
+import { Building2, Utensils } from 'lucide-react';
 import { auth, googleProvider } from '../firebase';
 import { signInWithPopup } from 'firebase/auth';
 import { createUser } from '../services/api';
